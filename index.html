@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=DM+Sans:wght@400;500;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  ::selection{background:#C4715A;color:#FAF8F5}
+  @keyframes ljfade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+
+<div style="--accent: {{ accent }}; background:#FAF8F5; color:#2C2C2C; font-family:'Noto Sans KR',sans-serif; min-height:100vh; overflow-x:hidden; -webkit-font-smoothing:antialiased;">
+
+  <sc-if value="{{ showPromoBar }}" hint-placeholder-val="{{ true }}">
+  <div style="background:#2C2C2C; color:#FAF8F5; text-align:center; font-family:'Noto Sans KR',sans-serif; font-weight:300; font-size:12.5px; letter-spacing:0.04em; padding:9px 16px;">
+    <span style="opacity:.55; margin-right:10px;">✦</span>5만원 이상 구매 시 무료배송<span style="opacity:.35; margin:0 12px;">·</span>신규가입 시 10% 웰컴 쿠폰<span style="opacity:.55; margin-left:10px;">✦</span>
+  </div>
+  </sc-if>
+
+  <!-- ===== HEADER ===== -->
+  <header style="position:sticky; top:0; z-index:50; background:rgba(250,248,245,0.86); backdrop-filter:saturate(140%) blur(12px); border-bottom:1px solid #EAE3D8;">
+    <div style="max-width:1280px; margin:0 auto; padding:0 40px; height:72px; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:24px;">
+      <nav style="display:flex; align-items:center; gap:30px; font-family:'Noto Sans KR',sans-serif; font-size:14px; font-weight:500; letter-spacing:0.01em;">
+        <a href="#lighting" style="color:#2C2C2C; text-decoration:none;" style-hover="color:#C4715A">조명</a>
+        <a href="#objects" style="color:#2C2C2C; text-decoration:none;" style-hover="color:#C4715A">소품</a>
+        <a href="#featured" style="color:#2C2C2C; text-decoration:none;" style-hover="color:#C4715A">신상품</a>
+        <a href="#story" style="color:#2C2C2C; text-decoration:none;" style-hover="color:#C4715A">브랜드 스토리</a>
+      </nav>
+      <a href="#top" style="text-decoration:none; text-align:center; line-height:1; display:flex; align-items:center; justify-content:center;">
+        <img src="uploads/logo.png" alt="리빙짱 LIVINGJJANG" style="height:40px; width:auto;" />
+      </a>
+      <div style="display:flex; align-items:center; justify-content:flex-end; gap:18px;">
+        <div style="display:flex; align-items:center; gap:8px; background:#EDE8DF; border-radius:999px; padding:8px 14px; width:190px;">
+          <span style="color:#B8B2AA; font-size:14px;">⌕</span>
+          <input placeholder="무엇을 찾으세요?" style="border:none; background:transparent; outline:none; font-family:'Noto Sans KR',sans-serif; font-size:13px; color:#2C2C2C; width:100%;" />
+        </div>
+        <button data-on="0" onClick="{{ toggleWish }}" aria-label="찜" style="background:none; border:none; cursor:pointer; font-size:18px; color:#B8B2AA; line-height:1; transition:transform .2s, color .2s;">♡</button>
+        <button onClick="{{ openCart }}" aria-label="장바구니" style="position:relative; background:none; border:none; cursor:pointer; font-size:18px; color:#2C2C2C; line-height:1;">
+          <span style="font-family:'DM Sans';">⛬</span>
+          <span style="position:absolute; top:-7px; right:-9px; min-width:16px; height:16px; padding:0 4px; background:var(--accent,#C4715A); color:#FAF8F5; border-radius:999px; font-family:'DM Sans',sans-serif; font-weight:700; font-size:10px; display:flex; align-items:center; justify-content:center;">{{ cart }}</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section id="top" style="position:relative; max-width:1440px; margin:0 auto;">
+    <div style="position:relative; aspect-ratio:16/8; min-height:520px; background:#2C2C2C; overflow:hidden;">
+      <div style="position:absolute; inset:0; background:repeating-linear-gradient(135deg,#3a342f,#3a342f 22px,#34302b 22px,#34302b 44px);"></div>
+      <div style="position:absolute; inset:0; background:linear-gradient(90deg, rgba(28,26,24,.82) 0%, rgba(28,26,24,.40) 45%, rgba(28,26,24,.12) 100%);"></div>
+      <div style="position:absolute; top:14px; left:50%; transform:translateX(-50%); font-family:'DM Sans',monospace; font-size:10px; letter-spacing:.2em; color:rgba(250,248,245,.34); border:1px solid rgba(250,248,245,.18); padding:4px 10px; border-radius:3px;">HERO · 라이프스타일 컷 (램프가 켜진 저녁 침실)</div>
+      <div style="position:absolute; left:0; bottom:0; padding:0 0 64px 72px; max-width:760px; animation:ljfade .9s ease both;">
+        <div style="font-family:'DM Sans',sans-serif; font-weight:500; font-size:12px; letter-spacing:0.34em; color:#D4A84B; margin-bottom:22px;">2025 NEW COLLECTION — 무드의 시작</div>
+        <h1 style="font-family:'Noto Serif KR',serif; font-weight:600; font-size:clamp(40px,5.4vw,76px); line-height:1.16; color:#FAF8F5; letter-spacing:-0.01em;">당신의 공간에<br>감성을 더하다</h1>
+        <p style="font-family:'Noto Sans KR',sans-serif; font-weight:300; font-size:17px; line-height:1.8; color:rgba(250,248,245,.82); margin-top:24px; max-width:430px;">하루의 시작과 끝을 함께하는 빛, 책상 위 작은 소품 하나가 만드는 분위기. 오늘의 무드를 가장 나답게 밝혀보세요.</p>
+        <div style="display:flex; gap:14px; margin-top:36px; flex-wrap:wrap;">
+          <a href="#featured" style="font-family:'Noto Sans KR',sans-serif; font-weight:500; font-size:14px; text-decoration:none; background:#FAF8F5; color:#2C2C2C; padding:15px 30px; border-radius:999px; transition:transform .2s;" style-hover="transform:translateY(-2px)">컬렉션 둘러보기</a>
+          <a href="#story" style="font-family:'Noto Sans KR',sans-serif; font-weight:500; font-size:14px; text-decoration:none; background:transparent; color:#FAF8F5; padding:15px 30px; border-radius:999px; border:1px solid rgba(250,248,245,.4);" style-hover="border-color:#FAF8F5">브랜드 이야기</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PHILOSOPHY ===== -->
+  <section id="story" style="background:#EDE8DF; padding:96px 40px;">
+    <div style="max-width:880px; margin:0 auto; text-align:center;">
+      <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:500; font-size:15px; letter-spacing:0.16em; color:var(--accent,#C4715A); margin-bottom:28px;">OUR PHILOSOPHY</div>
+      <p style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:clamp(26px,3.4vw,40px); line-height:1.5; color:#2C2C2C; letter-spacing:-0.01em;">“공간은 취향의 언어다.”</p>
+      <p style="font-family:'Noto Sans KR',sans-serif; font-weight:300; font-size:16px; line-height:1.9; color:#6b655d; margin-top:30px; max-width:600px; margin-left:auto; margin-right:auto;">리빙짱이 만드는 제품은 단순한 오브제가 아닙니다. 트렌드를 쫓는 인테리어가 아닌, 나만의 무드로 채워진 공간 — 그 분위기를 결정짓는 조명과 소품으로 일상의 감성을 설계합니다.</p>
+    </div>
+  </section>
+
+  <!-- ===== CATEGORY DUO ===== -->
+  <section style="max-width:1280px; margin:0 auto; padding:96px 40px 8px;">
+    <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:34px; gap:24px; flex-wrap:wrap;">
+      <h2 style="font-family:'Noto Serif KR',serif; font-weight:600; font-size:34px; color:#2C2C2C; letter-spacing:-0.01em;">카테고리</h2>
+      <p style="font-family:'Noto Sans KR',sans-serif; font-weight:300; font-size:14px; color:#8a8379; max-width:340px; line-height:1.7;">빛과 소품, 두 가지 결로 공간의 무드를 완성합니다.</p>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+
+      <a id="lighting" href="#featured" style="position:relative; display:block; text-decoration:none; aspect-ratio:1/1; overflow:hidden;">
+        <div style="position:absolute; inset:0; background:repeating-linear-gradient(45deg,#e7dccb,#e7dccb 16px,#ddd0bb 16px,#ddd0bb 32px);"></div>
+        <div style="position:absolute; inset:0; background:linear-gradient(0deg, rgba(44,42,38,.55) 0%, rgba(44,42,38,0) 55%);"></div>
+        <div style="position:absolute; top:18px; left:18px; font-family:'DM Sans',monospace; font-size:10px; letter-spacing:.14em; color:#9a8f7d; background:rgba(250,248,245,.7); padding:3px 8px; border-radius:3px;">조명 클로즈업</div>
+        <div style="position:absolute; left:32px; bottom:32px; right:32px;">
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; letter-spacing:.1em; color:rgba(250,248,245,.85); margin-bottom:8px;">Lighting</div>
+          <div style="font-family:'Noto Serif KR',serif; font-weight:600; font-size:30px; color:#FAF8F5;">조명</div>
+          <div style="font-family:'Noto Sans KR',sans-serif; font-weight:300; font-size:13.5px; color:rgba(250,248,245,.78); margin-top:6px;">무드 램프 · 플로어 · 테이블 조명</div>
+          <span style="display:inline-block; margin-top:18px; font-family:'Noto Sans KR',sans-serif; font-weight:500; font-size:13px; background:#FAF8F5; color:#2C2C2C; padding:11px 22px; border-radius:999px;">둘러보기</span>
+        </div>
+      </a>
+
+      <a id="objects" href="#featured" style="position:relative; display:block; text-decoration:none; aspect-ratio:1/1; overflow:hidden;">
+        <div style="position:absolute; inset:0; background:repeating-linear-gradient(45deg,#e3ddd1,#e3ddd1 16px,#d8d0c0 16px,#d8d0c0 32px);"></div>
+        <div style="position:absolute; inset:0; background:linear-gradient(0deg, rgba(44,42,38,.55) 0%, rgba(44,42,38,0) 55%);"></div>
+        <div style="position:absolute; top:18px; left:18px; font-family:'DM Sans',monospace; font-size:10px; letter-spacing:.14em; color:#9a8f7d; background:rgba(250,248,245,.7); padding:3px 8px; border-radius:3px;">소품 연출 컷</div>
+        <div style="position:absolute; left:32px; bottom:32px; right:32px;">
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; letter-spacing:.1em; color:rgba(250,248,245,.85); margin-bottom:8px;">Living Objects</div>
+          <div style="font-family:'Noto Serif KR',serif; font-weight:600; font-size:30px; color:#FAF8F5;">소품</div>
+          <div style="font-family:'Noto Sans KR',sans-serif; font-weight:300; font-size:13.5px; color:rgba(250,248,245,.78); margin-top:6px;">캔들 홀더 · 디퓨저 · 데스크 데코</div>
+          <span style="display:inline-block; margin-top:18px; font-family:'Noto Sans KR',sans-serif; font-weight:500; font-size:13px; background:#FAF8F5; color:#2C2C2C; padding:11px 22px; border-radius:999px;">둘러보기</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ===== FEATURED PRODUCTS ===== -->
+  <section id="featured" style="max-width:1280px; margin:0 auto; padding:90px 40px;">
+    <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:38px; gap:24px; flex-wrap:wrap;">
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; letter-spacing:.12em; color:var(--accent,#C4715A); margin-bottom:10px;">This Month's Mood</div>
+        <h2 style="font-family:'Noto Serif KR',serif; font-weight:600; font-size:34px; color:#2C2C2C; letter-spacing:-0.01em;">이달의 무드</h2>
+      </div>
+      <a href="#featured" style="font-family:'Noto Sans KR',sans-serif; font-weight:500; font-size:13.5px; color:#2C2C2C; text-decoration:none; border-bottom:1px solid #2C2C2C; padding-bottom:3px;" style-hover="color:#C4715A">전체 보기 →</a>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:24px 22px;">
+      <sc-for list="{{ products }}" as="p" hint-placeholder-count="8">
+        <div style="background:transparent;">
+          <div style="position:relative; aspect-ratio:4/5; background:#EDE8DF; overflow:hidden;">
+            <div style="position:absolute; inset:0; background:repeating-linear-gradient(45deg,#ece5d8,#ece5d8 14px,#e3dac9 14px,#e3dac9 28px);"></div>
+            <div style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); font-family:'DM Sans',monospace; font-size:10px; letter-spacing:.1em; color:#ada291; text-align:center; white-space:nowrap;">{{ p.shot }}</div>
+            <sc-if value="{{ p.badge }}" hint-placeholder-val="">
+              <span style="position:absolute; top:12px; left:12px; font-family:'Noto Sans KR',sans-serif; font-weight:500; font-size:11px; letter-spacing:.04em; background:#FAF8F5; color:#2C2C2C; padding:4px 11px; border-radius:999px;">{{ p.badge }}</span>
+            </sc-if>
+            <button data-on="0" onClick="{{ toggleWish }}" aria-label="찜" style="position:absolute; top:10px; right:10px; width:32px; height:32px; border-radius:999px; border:none; background:rgba(250,248,245,.82); color:#B8B2AA; cursor:pointer; font-size:15px; line-height:1; transition:transform .2s,color .2s;">♡</button>
+          </div>
+          <div style="display:flex; gap:6px; margin-top:14px;">
+            <span style="width:11px; height:11px; border-radius:999px; background:#C4715A; box-shadow:0 0 0 1px #EAE3D8;"></span>
+            <span style="width:11px; height:11px; border-radius:999px; background:#D4A84B; box-shadow:0 0 0 1px #EAE3D8;"></span>
+            <span style="width:11px; height:11px; border-radius:999px; background:#2C2C2C; box-shadow:0 0 0 1px #EAE3D8;"></span>
+          </div>
+          <div style="font-family:'Noto Sans KR',sans-serif; font-weight:300; font-size:12px; color:#9a948a; margin-top:12px;">{{ p.cat }}</div>
+          <div style="font-family:'Noto Sans KR',sans-serif; font-weight:500; font-size:15px; color:#2C2C2C; margin-top:3px; line-height:1.5;">{{ p.name }}</div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-top:10px;">
+            <div style="font-family:'DM Sans',sans-serif; font-weight:500; font-size:15px; color:#2C2C2C;">{{ p.price }}</div>
+            <button onClick="{{ addToCart }}" style="font-family:'Noto Sans KR',sans-serif; font-weight:500; font-size:12.5px; background:transparent; color:#2C2C2C; border:1px solid #d8d0c2; padding:7px 15px; border-radius:999px; cursor:pointer; transition:background .2s,color .2s,border-color .2s;" style-hover="background:#2C2C2C;color:#FAF8F5;border-color:#2C2C2C">담기</button>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ===== EDITORIAL BANNER ===== -->
+  <section style="position:relative; max-width:1440px; margin:0 auto;">
+    <div style="position:relative; min-height:440px; aspect-ratio:16/7; overflow:hidden; background:#2C2C2C;">
+      <div style="position:absolute; inset:0; background:repeating-linear-gradient(135deg,#3a342f,#3a342f 24px,#332f2a 24px,#332f2a 48px);"></div>
+      <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(28,26,24,.2) 0%, rgba(28,26,24,.62) 100%);"></div>
+      <div style="position:absolute; top:16px; left:50%; transform:translateX(-50%); font-family:'DM Sans',monospace; font-size:10px; letter-spacing:.18em; color:rgba(250,248,245,.34); border:1px solid rgba(250,248,245,.18); padding:4px 10px; border-radius:3px;">와이드 에디토리얼 컷 (햇살 든 거실 · 따뜻한 톤)</div>
+      <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:40px;">
+        <div style="font-family:'DM Sans',sans-serif; font-weight:500; font-size:12px; letter-spacing:.32em; color:#D4A84B; margin-bottom:22px;">EVERYDAY, SPECIAL</div>
+        <p style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:clamp(24px,3.2vw,40px); line-height:1.5; color:#FAF8F5; max-width:740px;">특별한 날이 아닌,<br>매일의 공간을 위한 무드</p>
+        <a href="#featured" style="margin-top:34px; font-family:'Noto Sans KR',sans-serif; font-weight:500; font-size:14px; text-decoration:none; background:#FAF8F5; color:#2C2C2C; padding:14px 30px; border-radius:999px;" style-hover="transform:translateY(-2px)">신상품 만나보기</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BRAND VALUES ===== -->
+  <section style="max-width:1080px; margin:0 auto; padding:100px 40px;">
+    <div style="text-align:center; margin-bottom:56px;">
+      <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; letter-spacing:.12em; color:var(--accent,#C4715A); margin-bottom:10px;">What We Value</div>
+      <h2 style="font-family:'Noto Serif KR',serif; font-weight:600; font-size:32px; color:#2C2C2C;">리빙짱이 지키는 세 가지</h2>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:30px;">
+      <div style="text-align:center; padding:12px;">
+        <div style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:40px; color:var(--accent,#C4715A); margin-bottom:16px;">01</div>
+        <div style="font-family:'Noto Serif KR',serif; font-weight:600; font-size:21px; color:#2C2C2C; margin-bottom:12px;">무드 <span style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:500; font-size:16px; color:#B8B2AA;">Mood</span></div>
+        <p style="font-family:'Noto Sans KR',sans-serif; font-weight:300; font-size:14px; line-height:1.85; color:#6b655d;">제품 하나로 공간의 감성이 달라집니다. 기능보다 먼저 분위기를 설계해요.</p>
+      </div>
+      <div style="text-align:center; padding:12px; border-left:1px solid #EAE3D8; border-right:1px solid #EAE3D8;">
+        <div style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:40px; color:var(--accent,#C4715A); margin-bottom:16px;">02</div>
+        <div style="font-family:'Noto Serif KR',serif; font-weight:600; font-size:21px; color:#2C2C2C; margin-bottom:12px;">취향 <span style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:500; font-size:16px; color:#B8B2AA;">Taste</span></div>
+        <p style="font-family:'Noto Sans KR',sans-serif; font-weight:300; font-size:14px; line-height:1.85; color:#6b655d;">정답 없는 나만의 스타일을 응원합니다. 다양한 감성에 늘 열려 있어요.</p>
+      </div>
+      <div style="text-align:center; padding:12px;">
+        <div style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:40px; color:var(--accent,#C4715A); margin-bottom:16px;">03</div>
+        <div style="font-family:'Noto Serif KR',serif; font-weight:600; font-size:21px; color:#2C2C2C; margin-bottom:12px;">일상 <span style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:500; font-size:16px; color:#B8B2AA;">Everyday</span></div>
+        <p style="font-family:'Noto Sans KR',sans-serif; font-weight:300; font-size:14px; line-height:1.85; color:#6b655d;">특별한 날이 아닌, 매일을 위한 브랜드. 평범한 하루를 조금 더 곱게.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INSTAGRAM ===== -->
+  <sc-if value="{{ showInstagram }}" hint-placeholder-val="{{ true }}">
+  <section style="background:#EDE8DF; padding:80px 40px;">
+    <div style="max-width:1280px; margin:0 auto;">
+      <div style="text-align:center; margin-bottom:40px;">
+        <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; letter-spacing:.1em; color:var(--accent,#C4715A); margin-bottom:8px;">Follow our mood</div>
+        <a href="#" style="font-family:'DM Sans',sans-serif; font-weight:700; font-size:24px; color:#2C2C2C; text-decoration:none; letter-spacing:0.01em;">@livingjjang</a>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:12px;">
+        <div style="aspect-ratio:1/1; background:repeating-linear-gradient(45deg,#e4dccd,#e4dccd 12px,#dad0bd 12px,#dad0bd 24px); position:relative;"><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',monospace;font-size:9px;color:#a99e8b;">IG 01</span></div>
+        <div style="aspect-ratio:1/1; background:repeating-linear-gradient(45deg,#e7ddcc,#e7ddcc 12px,#ddd2bd 12px,#ddd2bd 24px); position:relative;"><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',monospace;font-size:9px;color:#a99e8b;">IG 02</span></div>
+        <div style="aspect-ratio:1/1; background:repeating-linear-gradient(45deg,#e3dbcb,#e3dbcb 12px,#d8cfbb 12px,#d8cfbb 24px); position:relative;"><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',monospace;font-size:9px;color:#a99e8b;">IG 03</span></div>
+        <div style="aspect-ratio:1/1; background:repeating-linear-gradient(45deg,#e8dfce,#e8dfce 12px,#ded4c0 12px,#ded4c0 24px); position:relative;"><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',monospace;font-size:9px;color:#a99e8b;">IG 04</span></div>
+        <div style="aspect-ratio:1/1; background:repeating-linear-gradient(45deg,#e4dccd,#e4dccd 12px,#dad0bd 12px,#dad0bd 24px); position:relative;"><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',monospace;font-size:9px;color:#a99e8b;">IG 05</span></div>
+        <div style="aspect-ratio:1/1; background:repeating-linear-gradient(45deg,#e7ddcc,#e7ddcc 12px,#ddd2bd 12px,#ddd2bd 24px); position:relative;"><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',monospace;font-size:9px;color:#a99e8b;">IG 06</span></div>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===== NEWSLETTER ===== -->
+  <section style="max-width:1280px; margin:0 auto; padding:96px 40px;">
+    <div style="max-width:620px; margin:0 auto; text-align:center;">
+      <h2 style="font-family:'Noto Serif KR',serif; font-weight:600; font-size:30px; color:#2C2C2C; line-height:1.4;">무드 레터를 받아보세요</h2>
+      <p style="font-family:'Noto Sans KR',sans-serif; font-weight:300; font-size:15px; line-height:1.8; color:#6b655d; margin-top:16px;">새로운 컬렉션과 공간을 채우는 작은 이야기를 가장 먼저 전해드릴게요.</p>
+      <div style="display:flex; gap:10px; margin-top:30px;">
+        <input id="ljNews" type="email" placeholder="이메일 주소" style="flex:1; border:1px solid #d8d0c2; background:#FAF8F5; border-radius:999px; padding:15px 22px; font-family:'Noto Sans KR',sans-serif; font-size:14px; color:#2C2C2C; outline:none;" style-focus="border-color:#C4715A" />
+        <button onClick="{{ subscribe }}" style="font-family:'Noto Sans KR',sans-serif; font-weight:500; font-size:14px; background:var(--accent,#C4715A); color:#FAF8F5; border:none; padding:15px 28px; border-radius:999px; cursor:pointer; white-space:nowrap; transition:transform .2s;" style-hover="transform:translateY(-2px)">구독하기</button>
+      </div>
+      <div id="ljNewsMsg" style="font-family:'Noto Sans KR',sans-serif; font-size:13px; color:var(--accent,#C4715A); margin-top:14px; min-height:18px;"></div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer style="background:#2C2C2C; color:#cfc8bd; padding:72px 40px 40px;">
+    <div style="max-width:1280px; margin:0 auto;">
+      <div style="display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:40px; padding-bottom:48px; border-bottom:1px solid rgba(250,248,245,.12);">
+        <div>
+          <div style="font-family:'Noto Serif KR',serif; font-weight:600; font-size:22px; color:#FAF8F5;">리빙짱</div>
+          <div style="font-family:'DM Sans',sans-serif; font-weight:700; font-size:9px; color:#D4A84B; letter-spacing:0.42em; margin-top:5px;">LIVINGJJANG</div>
+          <p style="font-family:'Noto Sans KR',sans-serif; font-weight:300; font-size:13px; line-height:1.85; color:#9a938a; margin-top:20px; max-width:280px;">당신의 공간에 감성을 더하다. 일상 공간을 취향으로 채우는 감성 라이프스타일 리빙 브랜드.</p>
+        </div>
+        <div>
+          <div style="font-family:'Noto Sans KR',sans-serif; font-weight:500; font-size:13px; color:#FAF8F5; margin-bottom:18px;">쇼핑</div>
+          <div style="display:flex; flex-direction:column; gap:11px; font-family:'Noto Sans KR',sans-serif; font-weight:300; font-size:13px;">
+            <a href="#lighting" style="color:#9a938a; text-decoration:none;" style-hover="color:#FAF8F5">조명</a>
+            <a href="#objects" style="color:#9a938a; text-decoration:none;" style-hover="color:#FAF8F5">소품</a>
+            <a href="#featured" style="color:#9a938a; text-decoration:none;" style-hover="color:#FAF8F5">신상품</a>
+            <a href="#featured" style="color:#9a938a; text-decoration:none;" style-hover="color:#FAF8F5">베스트</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'Noto Sans KR',sans-serif; font-weight:500; font-size:13px; color:#FAF8F5; margin-bottom:18px;">고객지원</div>
+          <div style="display:flex; flex-direction:column; gap:11px; font-family:'Noto Sans KR',sans-serif; font-weight:300; font-size:13px;">
+            <a href="#" style="color:#9a938a; text-decoration:none;" style-hover="color:#FAF8F5">주문/배송 안내</a>
+            <a href="#" style="color:#9a938a; text-decoration:none;" style-hover="color:#FAF8F5">교환/반품</a>
+            <a href="#" style="color:#9a938a; text-decoration:none;" style-hover="color:#FAF8F5">자주 묻는 질문</a>
+            <a href="#" style="color:#9a938a; text-decoration:none;" style-hover="color:#FAF8F5">1:1 문의</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'Noto Sans KR',sans-serif; font-weight:500; font-size:13px; color:#FAF8F5; margin-bottom:18px;">팔로우</div>
+          <div style="display:flex; flex-direction:column; gap:11px; font-family:'Noto Sans KR',sans-serif; font-weight:300; font-size:13px;">
+            <a href="#" style="color:#9a938a; text-decoration:none;" style-hover="color:#FAF8F5">Instagram @livingjjang</a>
+            <a href="#" style="color:#9a938a; text-decoration:none;" style-hover="color:#FAF8F5">네이버 스마트스토어</a>
+            <a href="#" style="color:#9a938a; text-decoration:none;" style-hover="color:#FAF8F5">카카오 채널</a>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; justify-content:space-between; padding-top:26px; gap:16px; flex-wrap:wrap;">
+        <div style="font-family:'DM Sans',sans-serif; font-size:11px; color:#7d766c; letter-spacing:.02em;">ⓒ 2024 LIVINGJJANG. All rights reserved. · 서울특별시 · hello@livingjjang.co.kr</div>
+        <div style="display:flex; gap:18px; font-family:'Noto Sans KR',sans-serif; font-weight:300; font-size:11px;">
+          <a href="#" style="color:#7d766c; text-decoration:none;">이용약관</a>
+          <a href="#" style="color:#7d766c; text-decoration:none;">개인정보처리방침</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accentTheme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;terracotta&quot;,&quot;mustard&quot;],&quot;default&quot;:&quot;terracotta&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showPromoBar&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showInstagram&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { cart: 0 };
+
+  renderVals() {
+    const accent = this.props.accentTheme === 'mustard' ? '#D4A84B' : '#C4715A';
+    const products = [
+      { name: '오브제 무드 램프', cat: '조명 · Lighting', price: '₩52,000', badge: 'NEW', shot: '무드 램프 컷' },
+      { name: '톤 플로어 조명', cat: '조명 · Lighting', price: '₩129,000', badge: '', shot: '플로어 조명 컷' },
+      { name: '세라믹 캔들 홀더', cat: '소품 · Objects', price: '₩28,000', badge: 'BEST', shot: '캔들 홀더 컷' },
+      { name: "아로마 디퓨저 '고요'", cat: '소품 · Objects', price: '₩34,000', badge: '', shot: '디퓨저 컷' },
+      { name: '미니 테라코타 화분', cat: '소품 · Objects', price: '₩18,000', badge: '', shot: '미니 화분 컷' },
+      { name: '라탄 테이블 램프', cat: '조명 · Lighting', price: '₩68,000', badge: 'NEW', shot: '테이블 램프 컷' },
+      { name: '우드 데스크 트레이', cat: '소품 · Objects', price: '₩42,000', badge: '', shot: '데스크 트레이 컷' },
+      { name: '린넨 무드 등', cat: '조명 · Lighting', price: '₩88,000', badge: 'BEST', shot: '린넨 무드등 컷' },
+    ];
+
+    const toggleWish = (e) => {
+      const b = e.currentTarget;
+      const on = b.getAttribute('data-on') === '1';
+      b.setAttribute('data-on', on ? '0' : '1');
+      b.textContent = on ? '♡' : '♥';
+      b.style.color = on ? '#B8B2AA' : accent;
+      b.style.transform = on ? 'scale(1)' : 'scale(1.18)';
+      setTimeout(() => { b.style.transform = on ? 'scale(1)' : 'scale(1)'; }, 180);
+    };
+
+    const addToCart = (e) => {
+      this.setState((s) => ({ cart: (s.cart || 0) + 1 }));
+      const b = e.currentTarget;
+      const t = b.textContent;
+      b.textContent = '담김 ✓';
+      b.style.background = '#2C2C2C';
+      b.style.color = '#FAF8F5';
+      b.style.borderColor = '#2C2C2C';
+      setTimeout(() => {
+        b.textContent = t;
+        b.style.background = 'transparent';
+        b.style.color = '#2C2C2C';
+        b.style.borderColor = '#d8d0c2';
+      }, 1100);
+    };
+
+    const openCart = () => {
+      this.setState((s) => ({ cart: s.cart }));
+    };
+
+    const subscribe = () => {
+      const i = document.getElementById('ljNews');
+      const m = document.getElementById('ljNewsMsg');
+      if (!i || !m) return;
+      const v = (i.value || '').trim();
+      if (v && /\S+@\S+\.\S+/.test(v)) {
+        m.textContent = '구독해주셔서 감사해요. 무드 소식을 가장 먼저 전해드릴게요.';
+        m.style.color = accent;
+        i.value = '';
+      } else {
+        m.textContent = '올바른 이메일 주소를 입력해주세요.';
+        m.style.color = '#B8722f';
+      }
+    };
+
+    return {
+      accent,
+      cart: this.state.cart,
+      showPromoBar: this.props.showPromoBar ?? true,
+      showInstagram: this.props.showInstagram ?? true,
+      products,
+      toggleWish,
+      addToCart,
+      openCart,
+      subscribe,
+    };
+  }
+}
+</script>
+<script src="./chatbot.js"></script>
+</body>
+</html>
