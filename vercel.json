@@ -1,7 +1,7 @@
 {
+  "framework": null,
   "functions": {
     "api/chat.js": {
-      "memory": 256,
       "maxDuration": 15
     }
   }
